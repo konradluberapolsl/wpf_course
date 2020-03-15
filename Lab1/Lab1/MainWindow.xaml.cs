@@ -38,10 +38,31 @@ namespace Lab1
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
+            
+
             if (isNotEmpty(textBoxName) & isNotEmpty(textBoxSurname))
             {
 
             }
+        }
+    }
+
+    public class Person
+    {
+        private string name = "";
+        public string Name { get { return name; } set { name = value; }}
+        private string surname = "";
+        public string Surname { get { return surname; } set { surname = value; } }
+        private double weight = 0;
+        public double Weight { get { return weight; } set { weight = value; } }
+        private double age = 0;
+        public double Age { get { return age; } set { age = value; } }
+        Person( string name, string surname, double weight, double age)
+        {
+            this.age = age;
+            this.name = name;
+            this.surname = surname;
+            this.weight = weight;
         }
     }
 }

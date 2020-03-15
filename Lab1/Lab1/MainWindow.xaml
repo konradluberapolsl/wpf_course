@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lab1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="1,0,-1.4,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
@@ -17,9 +17,9 @@
             <Label Content="Nazwisko"/>
             <local:texBoxWithErrorProvider x:Name="textBoxSurname" Margin="5"/>
             <Label Content="Wiek" />
-            <Slider x:Name="sliderAge" Minimum="1" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" Margin="5"/>
+            <local:sliderWithValue x:Name="sliderAge"/>
             <Label Content="Waga" />
-            <Slider x:Name="sliderWeight" Minimum="1" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" Margin="5"/>
+            <local:sliderWithValue x:Name="sliderWeight"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -28,8 +28,7 @@
                 <Button x:Name="buttonAdd" Margin="10" Grid.Column="0" Content="Dodaj" Click="ButtonAdd_Click"/>
                 <Button x:Name="buttonEdit" Margin="10" Grid.Column="1" Content="Edytuj"/>
             </Grid>
-            
         </StackPanel>
-                
+        <ListBox x:Name="listBox" Grid.Column="1" Margin="5"/> 
     </Grid>
 </Window>
