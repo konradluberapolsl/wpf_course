@@ -22,7 +22,7 @@ namespace Lab1
     public partial class sliderWithValue : UserControl
     {
         #region wlasciwosci
-            public double Value { get { return slider.Value; } }
+            public double Value { get { return slider.Value; } set { slider.Value = value; } }
         #endregion
 
 

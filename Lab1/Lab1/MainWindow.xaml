@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Spis" Height="450" Width="800" >
     <Grid Margin="1,0,-1.4,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -29,6 +29,24 @@
                 <Button x:Name="buttonEdit" Margin="10" Grid.Column="1" Content="Edytuj"/>
             </Grid>
         </StackPanel>
-        <ListBox x:Name="listBox" Grid.Column="1" Margin="5"/> 
+        <ListBox x:Name="listBox"   Grid.Column="1" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"  />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Margin="0,0,10,0"  Text="{Binding Name}" />
+                        <TextBlock Grid.Column="1" Margin="0,0,10,0" Text="{Binding Surname}" />
+                        <TextBlock Grid.Column="2" Margin="0,0,10,0" Text="{Binding Weight}" />
+                        <TextBlock Grid.Column="3" Margin="0,0,10,0" Text="{Binding Age}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
     </Grid>
 </Window>

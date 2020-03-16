@@ -40,14 +40,38 @@ namespace Lab1
             return true;
         }
 
+        public bool personAlredyExistys(Person p)
+        {
+            if (people.Contains(p))
+                return true;
+            return false;
+        }
+
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            
-
             if (isNotEmpty(textBoxName) & isNotEmpty(textBoxSurname))
             {
-                people.Add(new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value));
+               Person tmp = new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value);
+                if (!personAlredyExistys(tmp))
+                    people.Add(tmp);
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("Taka osoba już znajduje się na liście.\nChcesz ją dodać mimo to?","Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            people.Add(tmp);
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                    }
+                }
+                tmp = null;
                 listBox.ItemsSource = people;
+                textBoxName.Text="";
+                textBoxSurname.Text = "";
+                sliderAge.Value = 0;
+                sliderWeight.Value = 0;
             }
         }
     }
@@ -71,7 +95,28 @@ namespace Lab1
         }
         public override string ToString()
         {
-            return "Imie: " + Name + " Nazwisko: " + surname + " Waga: " + weight.ToString("0") + " Wiek: " + age.ToString("0");
+            return "Imie: " + name + " Nazwisko: " + surname + " Waga: " + weight.ToString("0") + " Wiek: " + age.ToString("0");
+        }
+        public bool Equals(Person other)
+        {
+            if (other == null)
+                return false;
+            if ((this.name == other.Name) && (this.surname==other.Surname) && (this.age==other.Age) && (this.weight==other.Weight))
+            {
+                return true; 
+            }
+            return false;
+        }
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Person personObj = obj as Person;
+            if (personObj == null)
+                return false;
+            else
+                return Equals(personObj);
         }
     }
 }
