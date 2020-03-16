@@ -45,8 +45,8 @@ C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\texBoxWithErrorProvider.ba
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.g.resources
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.Properties.Resources.resources
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.csproj.GenerateResource.cache
-C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.csproj.CoreCompileInputs.cache
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.exe
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.pdb
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\sliderWithValue.g.cs
 C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\sliderWithValue.baml
+C:\Users\konra\Desktop\wpf_course\Lab1\Lab1\obj\Debug\Lab1.csprojAssemblyReference.cache
