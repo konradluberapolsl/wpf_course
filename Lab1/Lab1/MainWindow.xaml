@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab1"
         mc:Ignorable="d"
-        Title="Spis" Height="450" Width="800" >
+        Title="Spis" Height="450" Width="800" 
+        Closing="MainWindow_Closing">
     <Grid Margin="1,0,-1.4,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />

@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.ComponentModel;
+using System.IO;
+using Microsoft.Win32;
 
 namespace Lab1
 {
@@ -22,15 +13,17 @@ namespace Lab1
     //
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Person> people = new ObservableCollection<Person>();
+        private ObservableCollection<Person> people = new ObservableCollection<Person>(); // Spis osób
+        private bool isDataDirty = false; // Odpowiada za sprawdzenie czy dane zostały zapisane  
 
         public MainWindow()
         {
             InitializeComponent();
+            loadPeople();
            
         }
 
-        public bool isNotEmpty(texBoxWithErrorProvider tb)
+        public bool isNotEmpty(texBoxWithErrorProvider tb) // Sprawdza czy textbox nie jest  pusty
         {
             if (tb.Text.Trim() == "")
             {
@@ -40,11 +33,33 @@ namespace Lab1
             return true;
         }
 
-        public bool personAlredyExistys(Person p)
+        public bool personAlredyExistys(Person p) //Sprawdza czy osoba już istnieje w spisie
         {
             if (people.Contains(p))
                 return true;
             return false;
+        }
+
+        private void loadPeople() //ładuje spis z pliku
+        {
+            string[] lines = File.ReadAllLines(@"baza.txt");
+            double tmp1 = 0, tmp2 = 0;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] tmp = lines[i].Split(' ');
+                for (int j = 0; j < tmp.Length; j++)
+                {
+                    if (j == 2)
+                        tmp1 = Double.Parse(tmp[2]);
+                    else if (j == 3)
+                    {
+                        tmp2 = Double.Parse(tmp[3]);
+                        people.Add(new Person(tmp[0], tmp[1], tmp1, tmp2));
+                    }
+                }
+            }
+            listBox.ItemsSource = people;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -53,7 +68,10 @@ namespace Lab1
             {
                Person tmp = new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value);
                 if (!personAlredyExistys(tmp))
+                {
                     people.Add(tmp);
+                    isDataDirty = true;
+                } 
                 else
                 {
                     MessageBoxResult result = MessageBox.Show("Taka osoba już znajduje się na liście.\nChcesz ją dodać mimo to?","Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -61,62 +79,55 @@ namespace Lab1
                     {
                         case MessageBoxResult.Yes:
                             people.Add(tmp);
+                            isDataDirty = true;
                             break;
                         case MessageBoxResult.No:
                             break;
                     }
                 }
                 tmp = null;
-                listBox.ItemsSource = people;
+                //listBox.ItemsSource = people;
                 textBoxName.Text="";
                 textBoxSurname.Text = "";
                 sliderAge.Value = 0;
                 sliderWeight.Value = 0;
+
             }
         }
-    }
 
-    public class Person
-    {
-        private string name = "";
-        public string Name { get { return name; } set { name = value; }}
-        private string surname = "";
-        public string Surname { get { return surname; } set { surname = value; } }
-        private double weight = 0;
-        public double Weight { get { return weight; } set { weight = value; } }
-        private double age = 0;
-        public double Age { get { return age; } set { age = value; } }
-        public Person( string name, string surname, double weight, double age)
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            this.age = age;
-            this.name = name;
-            this.surname = surname;
-            this.weight = weight;
-        }
-        public override string ToString()
-        {
-            return "Imie: " + name + " Nazwisko: " + surname + " Waga: " + weight.ToString("0") + " Wiek: " + age.ToString("0");
-        }
-        public bool Equals(Person other)
-        {
-            if (other == null)
-                return false;
-            if ((this.name == other.Name) && (this.surname==other.Surname) && (this.age==other.Age) && (this.weight==other.Weight))
+            if (isDataDirty == true)
             {
-                return true; 
-            }
-            return false;
-        }
-        public override bool Equals(Object obj)
-        {
-            if (obj == null)
-                return false;
+                //SaveFileDialog saveFileDialog = new SaveFileDialog();
+                //saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+                //if (saveFileDialog.ShowDialog() == true)
+                //{
+                //    File.WriteAllText(saveFileDialog.FileName, String.Empty);
+                //    foreach (var item in people)
+                //    {
+                //        File.AppendAllText(saveFileDialog.FileName, item.ToString() + "\n");
+                //    }
+                //}
+                //File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
 
-            Person personObj = obj as Person;
-            if (personObj == null)
-                return false;
-            else
-                return Equals(personObj);
+                MessageBoxResult result = MessageBox.Show("Chcesz zapisać zmiany przed zamknięciem?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        File.WriteAllText("baza.txt", String.Empty);
+                        foreach (var item in people)
+                        {
+                            File.AppendAllText("baza.txt", item.ToString() + "\n");
+                        }
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+
         }
     }
+
+
 }
