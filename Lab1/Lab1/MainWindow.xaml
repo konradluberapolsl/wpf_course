@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="buttonAdd" Margin="10" Grid.Column="0" Content="Dodaj" Click="ButtonAdd_Click"/>
-                <Button x:Name="buttonEdit" Margin="10" Grid.Column="1" Content="Edytuj"/>
+                <Button x:Name="buttonEdit" Margin="10" Grid.Column="1" Content="Edytuj" Click="buttonEdit_Click"/>
             </Grid>
         </StackPanel>
         <ListBox x:Name="listBox"   Grid.Column="1" Margin="5">

@@ -86,8 +86,7 @@ namespace Lab1
                     }
                 }
                 tmp = null;
-                //listBox.ItemsSource = people;
-                textBoxName.Text="";
+                 textBoxName.Text="";
                 textBoxSurname.Text = "";
                 sliderAge.Value = 0;
                 sliderWeight.Value = 0;
@@ -125,6 +124,11 @@ namespace Lab1
                         break;
                 }
             }
+
+        }
+
+        private void buttonEdit_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
