@@ -166,6 +166,7 @@ namespace Lab1
                     listBox.Items.Refresh();
                     clearValues();
                     buttonChange.Visibility = Visibility.Hidden;
+                    buttonDelete.Visibility = Visibility.Hidden;
                     isDataDirty = true;
                 }
                 else if (textBoxName.Text == people[listBox.SelectedIndex].Name & textBoxSurname.Text == people[listBox.SelectedIndex].Surname & sliderAge.Value == people[listBox.SelectedIndex].Age & sliderWeight.Value == people[listBox.SelectedIndex].Weight)
@@ -187,6 +188,7 @@ namespace Lab1
                     }
                     clearValues();
                     buttonChange.Visibility = Visibility.Hidden;
+                    buttonDelete.Visibility = Visibility.Hidden;
                 }
                 tmp = null;
 
@@ -205,11 +207,14 @@ namespace Lab1
                     people.RemoveAt(listBox.SelectedIndex);
                     //listBox.Items.Refresh();
                     clearValues();
+                    buttonChange.Visibility = Visibility.Hidden;
+                    buttonDelete.Visibility = Visibility.Hidden;
                     isDataDirty = true;
                     break;
                 case MessageBoxResult.No:
                     break;
             }
+
         }
     }
 
