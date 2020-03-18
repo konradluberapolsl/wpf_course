@@ -72,6 +72,20 @@ namespace Lab1
             sliderWeight.Value = 0;
         }
 
+        private void buttonsVisibility (bool visibility)
+        {
+            if (visibility)
+            {
+                buttonDelete.Visibility = Visibility.Visible;
+                buttonChange.Visibility = Visibility.Visible;
+            }
+            else if (!visibility)
+            {
+                buttonDelete.Visibility = Visibility.Hidden;
+                buttonChange.Visibility = Visibility.Hidden;
+            }
+        }
+
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             if (isNotEmpty(textBoxName) & isNotEmpty(textBoxSurname))
@@ -80,6 +94,7 @@ namespace Lab1
                 if (!personAlredyExistys(tmp))
                 {
                     people.Add(tmp);
+                    clearValues();
                     isDataDirty = true;
                 }
                 else
@@ -89,14 +104,19 @@ namespace Lab1
                     {
                         case MessageBoxResult.Yes:
                             people.Add(tmp);
+                            clearValues();
                             isDataDirty = true;
+                            listBox.SelectedItem = null;
+                            buttonsVisibility(false);
                             break;
                         case MessageBoxResult.No:
                             break;
                     }
+
                 }
                 tmp = null;
-                clearValues();
+
+   
 
             }
         }
@@ -134,23 +154,7 @@ namespace Lab1
 
         }
 
-        private void buttonEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (listBox.SelectedItem != null)
-            {
-                textBoxName.Text = people[listBox.SelectedIndex].Name;
-                textBoxSurname.Text = people[listBox.SelectedIndex].Surname;
-                sliderAge.Value = people[listBox.SelectedIndex].Age;
-                sliderWeight.Value = people[listBox.SelectedIndex].Weight;
 
-                //System.Windows.Controls.Button newBtn = new Button();
-                //newBtn.Content = "A New Button";     
-                //newBtn.Click += new RoutedEventHandler(newBtn_Click);
-                //stackPanel.Children.Add(newBtn);
-                buttonDelete.Visibility = Visibility.Visible;
-                buttonChange.Visibility = Visibility.Visible;
-            }
-        }
 
         private void buttonChange_Click(object sender, RoutedEventArgs e)
         {
@@ -165,9 +169,10 @@ namespace Lab1
                     people[listBox.SelectedIndex].Weight = sliderWeight.Value;
                     listBox.Items.Refresh();
                     clearValues();
-                    buttonChange.Visibility = Visibility.Hidden;
-                    buttonDelete.Visibility = Visibility.Hidden;
+                    buttonsVisibility(false);
+                    listBox.SelectedItem = null;
                     isDataDirty = true;
+                    //listBox.SelectedItem = null;
                 }
                 else if (textBoxName.Text == people[listBox.SelectedIndex].Name & textBoxSurname.Text == people[listBox.SelectedIndex].Surname & sliderAge.Value == people[listBox.SelectedIndex].Age & sliderWeight.Value == people[listBox.SelectedIndex].Weight)
                 {
@@ -181,14 +186,16 @@ namespace Lab1
                     {
                         case MessageBoxResult.Yes:
                             people.Add(tmp);
+                            clearValues();
+                            listBox.SelectedItem = null;
+                            buttonsVisibility(false);
                             isDataDirty = true;
                             break;
                         case MessageBoxResult.No:
                             break;
                     }
-                    clearValues();
-                    buttonChange.Visibility = Visibility.Hidden;
-                    buttonDelete.Visibility = Visibility.Hidden;
+                    buttonsVisibility(false);
+
                 }
                 tmp = null;
 
@@ -204,16 +211,33 @@ namespace Lab1
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    people.RemoveAt(listBox.SelectedIndex);
+                    people.Remove(people[listBox.SelectedIndex]);
                     //listBox.Items.Refresh();
                     clearValues();
-                    buttonChange.Visibility = Visibility.Hidden;
-                    buttonDelete.Visibility = Visibility.Hidden;
+                    buttonsVisibility(false);
                     isDataDirty = true;
+                    //listBox.SelectedItem = null;
                     break;
                 case MessageBoxResult.No:
                     break;
             }
+
+        }
+
+        private void listBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+           try
+            {
+                textBoxName.Text = people[listBox.SelectedIndex].Name;
+                textBoxSurname.Text = people[listBox.SelectedIndex].Surname;
+                sliderAge.Value = people[listBox.SelectedIndex].Age;
+                sliderWeight.Value = people[listBox.SelectedIndex].Weight;
+
+                buttonsVisibility(true);
+            }
+            catch { }
+
+
 
         }
     }
