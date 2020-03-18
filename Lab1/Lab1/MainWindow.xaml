@@ -12,7 +12,7 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Column="0" x:Name="stackPanel">
             <Label Content="Imie"/>
             <local:texBoxWithErrorProvider x:Name="textBoxName" Margin="5"/>
             <Label Content="Nazwisko"/>
@@ -29,22 +29,25 @@
                 <Button x:Name="buttonAdd" Margin="10" Grid.Column="0" Content="Dodaj" Click="ButtonAdd_Click"/>
                 <Button x:Name="buttonEdit" Margin="10" Grid.Column="1" Content="Edytuj" Click="buttonEdit_Click"/>
             </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="buttonDelete" Margin="10" Grid.Column="0" Content="Usuń"  Visibility="Hidden" Click="buttonDelete_Click" />
+                <Button x:Name="buttonChange" Margin="10" Grid.Column="1" Content="Zmień"  Visibility="Hidden" Click="buttonChange_Click"/>
+            </Grid>
+
         </StackPanel>
         <ListBox x:Name="listBox"   Grid.Column="1" Margin="5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"  />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Margin="0,0,10,0"  Text="{Binding Name}" />
-                        <TextBlock Grid.Column="1" Margin="0,0,10,0" Text="{Binding Surname}" />
-                        <TextBlock Grid.Column="2" Margin="0,0,10,0" Text="{Binding Weight}" />
-                        <TextBlock Grid.Column="3" Margin="0,0,10,0" Text="{Binding Age}" />
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Margin="0,0,10,0"  Text="{Binding Name}" />
+                        <TextBlock  Margin="0,0,10,0" Text="{Binding Surname}" />
+                        <TextBlock  Margin="0,0,10,0" Text="{Binding Weight}" />
+                        <TextBlock  Margin="0,0,10,0" Text="{Binding Age}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

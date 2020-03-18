@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using System.IO;
-using Microsoft.Win32;
+using System.Collections.Generic;
+using System.Text;
+
 
 namespace Lab1
 {
@@ -20,7 +22,7 @@ namespace Lab1
         {
             InitializeComponent();
             loadPeople();
-           
+            listBox.ItemsSource = people;
         }
 
         public bool isNotEmpty(texBoxWithErrorProvider tb) // Sprawdza czy textbox nie jest  pusty
@@ -59,22 +61,30 @@ namespace Lab1
                     }
                 }
             }
-            listBox.ItemsSource = people;
+           
+        }
+
+        private void clearValues()
+        {
+            textBoxName.Text = "";
+            textBoxSurname.Text = "";
+            sliderAge.Value = 0;
+            sliderWeight.Value = 0;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             if (isNotEmpty(textBoxName) & isNotEmpty(textBoxSurname))
             {
-               Person tmp = new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value);
+                Person tmp = new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value);
                 if (!personAlredyExistys(tmp))
                 {
                     people.Add(tmp);
                     isDataDirty = true;
-                } 
+                }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show("Taka osoba już znajduje się na liście.\nChcesz ją dodać mimo to?","Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxResult result = MessageBox.Show("Taka osoba już znajduje się na liście.\nChcesz ją dodać mimo to?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     switch (result)
                     {
                         case MessageBoxResult.Yes:
@@ -86,10 +96,7 @@ namespace Lab1
                     }
                 }
                 tmp = null;
-                 textBoxName.Text="";
-                textBoxSurname.Text = "";
-                sliderAge.Value = 0;
-                sliderWeight.Value = 0;
+                clearValues();
 
             }
         }
@@ -129,7 +136,80 @@ namespace Lab1
 
         private void buttonEdit_Click(object sender, RoutedEventArgs e)
         {
+            if (listBox.SelectedItem != null)
+            {
+                textBoxName.Text = people[listBox.SelectedIndex].Name;
+                textBoxSurname.Text = people[listBox.SelectedIndex].Surname;
+                sliderAge.Value = people[listBox.SelectedIndex].Age;
+                sliderWeight.Value = people[listBox.SelectedIndex].Weight;
 
+                //System.Windows.Controls.Button newBtn = new Button();
+                //newBtn.Content = "A New Button";     
+                //newBtn.Click += new RoutedEventHandler(newBtn_Click);
+                //stackPanel.Children.Add(newBtn);
+                buttonDelete.Visibility = Visibility.Visible;
+                buttonChange.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void buttonChange_Click(object sender, RoutedEventArgs e)
+        {
+            if (isNotEmpty(textBoxName) & isNotEmpty(textBoxSurname))
+            {
+                Person tmp = new Person(textBoxName.Text, textBoxSurname.Text, sliderWeight.Value, sliderAge.Value);
+                if (!personAlredyExistys(tmp))
+                {
+                    people[listBox.SelectedIndex].Name = textBoxName.Text;
+                    people[listBox.SelectedIndex].Surname = textBoxSurname.Text;
+                    people[listBox.SelectedIndex].Age = sliderAge.Value;
+                    people[listBox.SelectedIndex].Weight = sliderWeight.Value;
+                    listBox.Items.Refresh();
+                    clearValues();
+                    buttonChange.Visibility = Visibility.Hidden;
+                    isDataDirty = true;
+                }
+                else if (textBoxName.Text == people[listBox.SelectedIndex].Name & textBoxSurname.Text == people[listBox.SelectedIndex].Surname & sliderAge.Value == people[listBox.SelectedIndex].Age & sliderWeight.Value == people[listBox.SelectedIndex].Weight)
+                {
+                    MessageBox.Show("Nic nie zmieniłeś", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("Taka osoba już znajduje się na liście.\nChcesz ją dodać mimo to?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            people.Add(tmp);
+                            isDataDirty = true;
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                    }
+                    clearValues();
+                    buttonChange.Visibility = Visibility.Hidden;
+                }
+                tmp = null;
+
+
+
+            }
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e) //BRAK ZABEZPIECZENIA PRZED ZMIANA ZAZNACZONEGO ELEMENTU TODO -KIEDYŚ :D  
+        {
+           
+            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć?" , "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    people.RemoveAt(listBox.SelectedIndex);
+                    //listBox.Items.Refresh();
+                    clearValues();
+                    isDataDirty = true;
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
         }
     }
 
