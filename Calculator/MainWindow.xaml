@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Kalkulator"  Height="600" Width="450" Background="#404040" FontFamily="Lato" ResizeMode="NoResize"  >
+        Title="Kalkulator"  Height="600" Width="450" Background="#404040" FontFamily="Lato"   >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,9 +20,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <TextBlock x:Name="Equation" Margin="0,0,5,0" Height="40" Grid.Row="0" Text="0" FontSize="35" FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Right" Foreground="WhiteSmoke"/>
+            <TextBlock x:Name="Equation" Margin="0,0,5,0" Height="40" Grid.Row="0" Text="0" FontSize="35"  TextAlignment="Center" HorizontalAlignment="Right" Foreground="WhiteSmoke"/>
             <Border BorderBrush="White" BorderThickness="1" Grid.Row="1">
-            <TextBox x:Name="Operation" MaxLines="1"  Margin="0,0,5,0" Background="Transparent" Foreground="WhiteSmoke" Text="0" FontSize="80" HorizontalAlignment="Right" VerticalAlignment="Center" Height="89" BorderThickness="0" />
+            <TextBox x:Name="Operation" FlowDirection="LeftToRight" MaxLines="1"   Margin="0,0,5,0" Background="Transparent" Foreground="WhiteSmoke" Text="0" FontSize="80" HorizontalAlignment="Right" VerticalAlignment="Center" Height="89" BorderThickness="0" />
             </Border>
 
             <Grid VerticalAlignment="Stretch" Grid.Row="2" Margin="5">
@@ -41,27 +41,33 @@
                 </Grid.RowDefinitions>
                 
             <!--#region 1. row -->
-            <Button x:Name="C" Grid.Column="0" Grid.Row="0" Content="C" Background="#292929" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="CE" Grid.Column="1" Grid.Row="0" Content="CE" Background="#292929" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Delete" Grid.Column="2" Grid.Row="0" Content="&#x232b;" OverridesDefaultStyle="False" Style="{StaticResource ButtonStyle}"  Background="#292929"   />
+                <Button x:Name="B_C" Grid.Column="0" Grid.Row="0" Content="C"  Style="{StaticResource ButtonStyle}"  Click="B_Delete_Clicked" />
+                <Button x:Name="B_CE" Grid.Column="1" Grid.Row="0" Content="CE"  Style="{StaticResource ButtonStyle}"  Click="B_Delete_Clicked" />
+                <Button x:Name="B_Delete" Grid.Column="2" Grid.Row="0" Content="&#x232b;"  Style="{StaticResource ButtonStyle}"  Click="B_Delete_Clicked"  />
+                <Button x:Name="B_Divide" Grid.Column="3" Grid.Row="0" Content="/" Style="{StaticResource ButtonStyle}" Click="B_Function_Clicked"/>
             <!--#endregion-->
             <!--#region 2. row -->
-                <Button x:Name="Seven" Grid.Column="0" Grid.Row="1" Content="7" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Eight" Grid.Column="1" Grid.Row="1" Content="8" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Nine"  Grid.Column="2" Grid.Row="1" Content="9" Style="{StaticResource ButtonStyle}" />
+                <Button x:Name="B_Seven" Grid.Column="0" Grid.Row="1" Content="7" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Eight" Grid.Column="1" Grid.Row="1" Content="8" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Nine"  Grid.Column="2" Grid.Row="1" Content="9" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Mulitply" Grid.Column="3" Grid.Row="1" Content="*" Style="{StaticResource ButtonStyle}" Click="B_Function_Clicked" />
             <!--#endregion--> 
             <!--#region 3. row-->
-                <Button x:Name="Four" Grid.Column="0" Grid.Row="2" Content="4" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Five" Grid.Column="1" Grid.Row="2" Content="5" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Six" Grid.Column="2" Grid.Row="2" Content="6" Style="{StaticResource ButtonStyle}" />
+                <Button x:Name="B_Four" Grid.Column="0" Grid.Row="2" Content="4" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Five" Grid.Column="1" Grid.Row="2" Content="5" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Six" Grid.Column="2" Grid.Row="2" Content="6" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Minus" Grid.Column="3" Grid.Row="2" Content="-" Style="{StaticResource ButtonStyle}" Click="B_Function_Clicked"/>
             <!--#endregion-->
             <!--#region 4. row-->
-                <Button x:Name="One" Grid.Column="0" Grid.Row="3" Content="1" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Two" Grid.Column="1" Grid.Row="3" Content="2" Style="{StaticResource ButtonStyle}" />
-                <Button x:Name="Three" Grid.Column="2" Grid.Row="3" Content="4" Style="{StaticResource ButtonStyle}" />
+                <Button x:Name="B_One" Grid.Column="0" Grid.Row="3" Content="1" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Two" Grid.Column="1" Grid.Row="3" Content="2" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Three" Grid.Column="2" Grid.Row="3" Content="4" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Add" Grid.Column="3" Grid.Row="3" Content="+" Style="{StaticResource ButtonStyle}" Click="B_Function_Clicked"/>
             <!--#endregion-->
             <!--#region 5. row-->
-                <Button x:Name="Zero" Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="4" Content="0" Style="{StaticResource ButtonStyle}" />
+                <Button x:Name="B_Zero" Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="4" Content="0" Style="{StaticResource ButtonStyle}"  Click="B_Digit_Clicked"/>
+                <Button x:Name="B_Dot"  Grid.Column="2" Grid.Row="4" Content="." Style="{StaticResource ButtonStyle}"  Click="B_Dot_Clicked"/>
+                <Button x:Name="B_Equal"  Grid.Column="3" Grid.Row="4" Content="=" Style="{StaticResource ButtonStyle}" Click="B_Equal_Clicked"/>
             <!--#endregion-->
             </Grid>
 
