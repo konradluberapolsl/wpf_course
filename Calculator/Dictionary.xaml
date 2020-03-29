@@ -3,18 +3,22 @@
                     xmlns:local="clr-namespace:Calculator">
 
 
-    <Style x:Key="ButtonStyle" TargetType="Button">
+    <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="FontSize" Value="40" />
-        <Setter Property="Foreground" Value="#5c5c5c"/>
+        <Setter Property="Background" Value="#1c1c1c"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border BorderThickness="1" BorderBrush="White">
-                        <ContentPresenter x:Name="ButtonContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
+                    
+                    <Border BorderThickness="1"   Background="{TemplateBinding Background}">
 
+                        <ContentPresenter x:Name="ButtonContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+                    </Border>
+                
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#757575" />
@@ -25,8 +29,8 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
 
-            </Setter.Value>
-
+            </Setter.Value>  
+            
         </Setter>
 
 
