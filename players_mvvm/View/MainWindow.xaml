@@ -31,12 +31,19 @@
              <ColumnDefinition Width="3*" />
          </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" x:Name="stackPanel">
+                
+                <!-- Text -->
                 <Label Content="Imie"/>
                 <local:TextBoxForLetters  x:Name="textBoxName" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=Name, Mode=TwoWay}"/>
                 <Label Content="Nazwisko"/>
                 <local:TextBoxForLetters  x:Name="textBoxSurname" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=Surname, Mode=TwoWay}"/>
                 <Label Content="Wiek" />
+                
+                <!-- Sliders -->
+             
                 <Grid Margin="5">
+                    
+                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="8*"/>
                         <ColumnDefinition Width="1.5*"/>
@@ -71,6 +78,9 @@
                            FontSize="15" 
                            Content="{Binding Path=Value,ElementName=sliderWeight}"/>
                 </Grid>
+                
+                <!-- Buttons -->
+                
                 <Button x:Name="buttonAdd" Margin="10" Content="Dodaj"  Command="{Binding AddPlayer}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -80,7 +90,9 @@
                     <Button x:Name="buttonDelete" Margin="10" Grid.Column="0"  Content="Usuń"  Command="{Binding DeletePlayer}"/>
                     <Button  x:Name="buttonModify" Margin="10" Grid.Column="1" Content="Zmień"  Command="{Binding ModifyPlayer}"/>
                 </Grid>
-
+            
+               <!-- Listbox-->
+                
             </StackPanel>
             <ListBox Grid.Column="1" x:Name="playersList_lb" Margin="5" ItemsSource="{Binding Path=Players , UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedPlayer, Mode=TwoWay }">
                 <i:Interaction.Triggers>

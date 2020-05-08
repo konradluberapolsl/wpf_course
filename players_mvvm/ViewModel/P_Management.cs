@@ -14,7 +14,7 @@ namespace players_mvvm.ViewModel
 
         private string name = null;
         private string surname = null;
-        private uint age = 15;
+        private uint age = 16;
         private uint weight = 50;
 
 
@@ -192,8 +192,8 @@ namespace players_mvvm.ViewModel
                         {
                             Name = SelectedPlayer.Name;
                             Surname = SelectedPlayer.Surname;
-                            Age = (uint)(SelectedPlayer.Age);
-                            Weight = (uint)(SelectedPlayer.Weight);
+                            Age = SelectedPlayer.Age;
+                            Weight = SelectedPlayer.Weight;
                         }, canExecute => SelectedPlayer != null);
                 }
                 return changePlayer;

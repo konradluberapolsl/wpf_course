@@ -12,16 +12,16 @@ namespace players_mvvm.Model
         public string Name { get { return name; } set { name = value; } }
         private string surname = "";
         public string Surname { get { return surname; } set { surname = value; } }
-        private double weight = 0;
-        public double Weight { get { return weight; } set { weight = value; } }
-        private double age = 0;
-        public double Age { get { return age; } set { age = value; } }
+        private uint weight = 0;
+        public uint Weight { get { return weight; } set { weight = value; } }
+        private uint age = 0;
+        public uint Age { get { return age; } set { age = value; } }
 
         public Player()
         {
 
         }
-        public Player(string name, string surname, double weight, double age)
+        public Player(string name, string surname, uint age, uint weight)
         {
             this.age = age;
             this.name = name;
