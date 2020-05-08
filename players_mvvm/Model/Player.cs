@@ -28,6 +28,15 @@ namespace players_mvvm.Model
             this.surname = surname;
             this.weight = weight;
         }
+
+        public void Copy(Player player)
+        {
+            Name = player.Name;
+            Surname = player.Surname;
+            Age = player.Age;
+            Weight = player.Weight;
+        } 
+
         public override string ToString()
         {
             return name + " " + surname + " " + weight.ToString("0") + " " + age.ToString("0");

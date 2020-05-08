@@ -15,15 +15,11 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Path=LoadData, Source={StaticResource pManagment}}" PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Path=LoadAgeItems, Source={StaticResource pManagment}}" PassEventArgsToCommand="True" />
+            <i:InvokeCommandAction Command="{Binding Path=Load, Source={StaticResource pManagment}}" PassEventArgsToCommand="True" />
         </i:EventTrigger>
 
         <i:EventTrigger EventName="LostFocus">
-            <i:InvokeCommandAction Command="{Binding Path=SaveData,Source={StaticResource pManagment}}" PassEventArgsToCommand="True" />
+            <i:InvokeCommandAction Command="{Binding Path=Save,Source={StaticResource pManagment}}" PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -36,9 +32,9 @@
          </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" x:Name="stackPanel">
                 <Label Content="Imie"/>
-                <local:TextBoxForLetters  x:Name="textBoxName" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=FirstName, Mode=TwoWay}"/>
+                <local:TextBoxForLetters  x:Name="textBoxName" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=Name, Mode=TwoWay}"/>
                 <Label Content="Nazwisko"/>
-                <local:TextBoxForLetters  x:Name="textBoxSurname" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=FirstName, Mode=TwoWay}"/>
+                <local:TextBoxForLetters  x:Name="textBoxSurname" Margin="5" ToolTip="Uzupełnij dane" Text="{Binding Path=Surname, Mode=TwoWay}"/>
                 <Label Content="Wiek" />
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -82,11 +78,17 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="buttonDelete" Margin="10" Grid.Column="0"  Content="Usuń"  Command="{Binding DeletePlayer}"/>
-                    <Button  x:Name="buttonChange" Margin="10" Grid.Column="1" Content="Zmień"  Command="{Binding ModifyPlayer}"/>
+                    <Button  x:Name="buttonModify" Margin="10" Grid.Column="1" Content="Zmień"  Command="{Binding ModifyPlayer}"/>
                 </Grid>
 
             </StackPanel>
-
+            <ListBox Grid.Column="1" x:Name="playersList_lb" Margin="5" ItemsSource="{Binding Path=Players , UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedPlayer, Mode=TwoWay }">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=Copy}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
 
         </Grid>
     </Border>
