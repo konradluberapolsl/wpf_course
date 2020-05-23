@@ -1,0 +1,58 @@
+﻿<Window x:Class="MiniTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:MiniTC.View"
+        xmlns:vm="clr-namespace:MiniTC.ViewModel" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:resx="clr-namespace:MiniTC.Resources"
+        mc:Ignorable="d"
+        Title="MiniTC" 
+        Height="620" 
+        Width="870"
+        ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <vm:MainViewModel x:Key="mainVM"/>
+        <!--Tutaj nie chciało zobaczyć-->
+    </Window.Resources>
+
+    <StackPanel DataContext="{StaticResource ResourceKey=mainVM}"  Orientation="Vertical">
+        <!--i: tutaj tez-->
+        <StackPanel Orientation="Horizontal" Margin="5" >
+            <view:Panel Drives="{Binding Path=Drives}" SelectedDrive="{Binding Path=SelectedDriveLeft, Mode=OneWayToSource}" WorkingPath="{Binding Path=WorkingPathLeft, Mode=OneWay}" WorkingDirectory="{Binding Path=WorkingDirectoryLeft, Mode=OneWay}" SelectedFile="{Binding Path=SelectedFileLeft, Mode=OneWayToSource}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseClick">
+                        <i:InvokeCommandAction Command="{Binding GoToDirectoryLeft}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="FocusedPanel">
+                        <i:InvokeCommandAction Command="{Binding FocusLeft}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </view:Panel>
+
+            <view:Panel Drives="{Binding Path=Drives}" SelectedDrive="{Binding Path=SelectedDriveRight, Mode=OneWayToSource}" WorkingPath="{Binding Path=WorkingPathRight, Mode=OneWay}" WorkingDirectory="{Binding Path=WorkingDirectoryRight, Mode=OneWay}" SelectedFile="{Binding Path=SelectedFileRight, Mode=OneWayToSource}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding GoToDirectoryRight}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="FocusedPanel">
+                        <i:InvokeCommandAction Command="{Binding FocusRight}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </view:Panel>
+        </StackPanel>
+
+        <Button HorizontalContentAlignment="Center" HorizontalAlignment="Center" Content=" &#x2B60; Copy &#x2B62; " Padding="5" FontSize="20">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding Copy}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+
+    </StackPanel>
+</Window>

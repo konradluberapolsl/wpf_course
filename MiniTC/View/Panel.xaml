@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MiniTC.View.Panel"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:MiniTC.View"
+             xmlns:resx="clr-namespace:MiniTC.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="500"
+             d:DesignWidth="420">
+
+    <StackPanel Orientation="Vertical" Margin="5">
+
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Label Width="40"  Margin="-5,0,10,0" Content="{Binding Source={x:Static resx:Res.DriveLbl}}"/>
+            <Label Margin="10,0,0,0" Content="{Binding Source={x:Static resx:Res.Pathlbl}}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <ComboBox Margin="0,0,10,0" Width="42"  SelectionChanged="DriveSelectionChanged" ItemsSource="{Binding Path=Drives, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"  SelectedItem="{Binding Path=SelectedDrive, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Margin="10,0,0,0" Width="340" IsEnabled="False" Text="{Binding Path=WorkingPath, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+        </StackPanel>
+
+        <ListBox Height="400" Margin="5,15" SelectionChanged="ListBoxSelectionChanged" MouseLeftButtonUp="LBMouseClick"  GotFocus="LBGotFocus" ItemsSource="{Binding Path=WorkingDirectory, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                 SelectedItem="{Binding Path=SelectedFile, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+            <!--Masakra z tą długością :D-->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+
+</UserControl>
